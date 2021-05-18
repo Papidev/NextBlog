@@ -1,12 +1,10 @@
-import React from 'react'
+import type { AppProps } from "next/app";
 
-import {AppProps} from 'next/app'
+import "../styles/index.css"; // global css
+import "fontsource-montserrat"; // global font
 
-import '../styles/index.css'
-import 'fontsource-montserrat'
+const App = ({ Component, pageProps }: AppProps) => {
+  return <Component {...pageProps} />;
+};
 
-const App: React.FC<AppProps> = ({Component, pageProps}) => {
-  return <Component {...pageProps} />
-}
-
-export default App
+export default App;
