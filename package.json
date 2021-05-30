@@ -2,7 +2,7 @@
   "name": "arcath.net-next",
   "private": true,
   "scripts": {
-    "dev": "next",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
     "prebuild": "ts-node scripts/data.ts",
     "build": "next build",
     "start": "next start",

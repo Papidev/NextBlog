@@ -16,7 +16,7 @@ export const Layout: React.FC = ({ children }) => {
       <Head>
         <link rel="icon" type="image/png" href="/img/512.png" />
       </Head>
-      <div
+      {/* <div
         className="w-8 absolute top-8 right-8 text-gray-300 dark:text-yellow-300"
         onClick={toggle}
       >
@@ -49,9 +49,9 @@ export const Layout: React.FC = ({ children }) => {
             />
           </svg>
         )}
-      </div>
+      </div> */}
       <div className="grid grid-cols-content">
-        <header className="h-64 col-span-full grid grid-cols-content">
+        <header className="h-24 col-span-full grid grid-cols-content">
           <div className="grid grid-cols-2 col-start-2 col-end-5">
             <div>
               <Link href="/">
@@ -76,13 +76,13 @@ export const Layout: React.FC = ({ children }) => {
             </div>
           </div>
         </header>
-        <div className="top-skew" />
+        {/* <div className="top-skew" /> */}
         <div className="bg-white col-span-full z-10 dark:bg-gray-800 dark:text-gray-300 transition-all">
           {children}
         </div>
-        <div className="bottom-skew" />
+        {/* <div className="bottom-skew" /> */}
         <div className="col-start-2 col-end-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 text-white mb-20">
-          <div className="w-64 mx-auto lg:ml-0">
+          {/* <div className="w-64 mx-auto lg:ml-0">
             <Image
               src="/img/profile.jpg"
               className="rounded-full w-64"
@@ -90,10 +90,10 @@ export const Layout: React.FC = ({ children }) => {
               width={256}
               height={256}
             />
-          </div>
+          </div> */}
           <div>
-            <h2 className="text-2xl">{meta.name}</h2>
-            <h3 className="text-xl mb-6">{meta.description}</h3>
+            {/* <h2 className="text-2xl">{meta.name}</h2>
+            <h3 className="text-xl mb-6">{meta.description}</h3> */}
             <p>All content is my own unless otherwise stated.</p>
             <p>
               My content is licensed under the{" "}
@@ -103,7 +103,7 @@ export const Layout: React.FC = ({ children }) => {
               license
             </p>
           </div>
-          <div className="md:col-span-2 lg:col-span-1">
+          {/* <div className="md:col-span-2 lg:col-span-1">
             <a
               href={meta.author.social.twitter}
               className="fill-current text-white hover:text-brands-twitter"
@@ -160,7 +160,7 @@ export const Layout: React.FC = ({ children }) => {
                 <path d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H6l.02 2.44.04 2.45.56-.02c.41 0 .63-.07.83-.26.24-.24.26-.36.26-2.2 0-1.91-.02-1.96-.29-2.18zM0 4.94v14.12h24V4.94H0zM8.56 15.3c-.44.58-1.06.77-2.53.77H4.71V8.53h1.4c1.67 0 2.16.18 2.6.9.27.43.29.6.32 2.57.05 2.23-.02 2.73-.47 3.3zm5.09-5.47h-2.47v1.77h1.52v1.28l-.72.04-.75.03v1.77l1.22.03 1.2.04v1.28h-1.6c-1.53 0-1.6-.01-1.87-.3l-.3-.28v-3.16c0-3.02.01-3.18.25-3.48.23-.31.25-.31 1.88-.31h1.64v1.3zm4.68 5.45c-.17.43-.64.79-1 .79-.18 0-.45-.15-.67-.39-.32-.32-.45-.63-.82-2.08l-.9-3.39-.45-1.67h.76c.4 0 .75.02.75.05 0 .06 1.16 4.54 1.26 4.83.04.15.32-.7.73-2.3l.66-2.52.74-.04c.4-.02.73 0 .73.04 0 .14-1.67 6.38-1.8 6.68z" />
               </svg>
             </a>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

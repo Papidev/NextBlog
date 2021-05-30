@@ -21,76 +21,12 @@ import { prepareMDX } from "@/lib/functions/prepare-mdx";
 
 import meta from "@/data/meta.json";
 
-export const getStaticProps = async () => {
-  const posts = await getPosts([
-    "slug",
-    "title",
-    "href",
-    "year",
-    "month",
-    "day",
-    "lead",
-  ]);
-  let books = await getBooks(
-    ["title", "href", "cover", "content", "directory", "slug"],
-    { limit: 2 }
-  );
-  const projects = await getProjects(["title", "href", "year"], {
-    order: "DESC",
-  });
-  let videos = await getVideos(
-    [
-      "title",
-      "videoId",
-      "href",
-      "source",
-      "sourceAddress",
-      "content",
-      "directory",
-      "slug",
-    ],
-    { limit: 1 }
-  );
-
-  videos = await asyncMap(videos, async (video) => {
-    const content = await prepareMDX(video.content, {
-      directory: video.directory,
-      imagesUrl: `/img/index/${video.slug.join("/")}`,
-    });
-
-    return {
-      ...video,
-      content,
-    };
-  });
-
-  books = await asyncMap(books, async (book) => {
-    const content = await prepareMDX(book.content, {
-      directory: book.directory,
-      imagesUrl: `/img/index/${book.slug.join("/")}`,
-    });
-
-    return {
-      ...book,
-      content,
-    };
-  });
-
-  return {
-    props: {
-      posts,
-      books,
-      projects,
-      videos,
-    },
-  };
-};
 const IndexPage = ({
   posts,
-  books,
-  projects,
-  videos,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
+}: // books,
+// projects,
+// videos,
+InferGetStaticPropsType<typeof getStaticProps>) => {
   //const { ref: inViewRef, inView } = useInView();
   // const [videoOpen, setVideoOpen] = useState(false);
 
@@ -109,8 +45,8 @@ const IndexPage = ({
       </Head>
       {/* <OpenGraph title={meta.name} description={meta.description} /> */}
       <div className="grid grid-cols-content prose dark:prose-dark max-w-none">
-        <h2 className="col-start-3">{meta.name}</h2>
-        <div className="col-start-3">
+        {/* <h2 className="col-start-3">{meta.name}</h2> */}
+        {/* <div className="col-start-3">
           <div className="mx-auto" style={{ width: "300px" }}>
             <Image
               className="rounded-full mx-auto w-full"
@@ -120,8 +56,8 @@ const IndexPage = ({
               alt={meta.name}
             />
           </div>
-        </div>
-        <p className="col-start-3">{meta.description}</p>
+        </div> */}
+        {/* <p className="col-start-3">{meta.description}</p> */}
         <h2 className="col-start-3">Recent Posts</h2>
         {posts.map(({ title, href, day, month, year, lead }) => {
           return [
@@ -161,7 +97,7 @@ const IndexPage = ({
             </div>,
           ];
         })} */}
-        <h2 className="col-start-3">Currently Reading</h2>
+        {/* <h2 className="col-start-3">Currently Reading</h2>
         {books.map(({ href, title, cover, content }) => {
           return [
             <div
@@ -202,10 +138,76 @@ const IndexPage = ({
         })}
         <Link href="/projects">
           <a className="col-start-3">More...</a>
-        </Link>
+        </Link> */}
       </div>
     </Layout>
   );
+};
+
+export const getStaticProps = async () => {
+  const posts = await getPosts([
+    "slug",
+    "title",
+    "href",
+    "year",
+    "month",
+    "day",
+    "lead",
+  ]);
+  console.log("posts", posts);
+  // let books = await getBooks(
+  //   ["title", "href", "cover", "content", "directory", "slug"],
+  //   { limit: 2 }
+  // );
+  // const projects = await getProjects(["title", "href", "year"], {
+  //   order: "DESC",
+  // });
+  // let videos = await getVideos(
+  //   [
+  //     "title",
+  //     "videoId",
+  //     "href",
+  //     "source",
+  //     "sourceAddress",
+  //     "content",
+  //     "directory",
+  //     "slug",
+  //   ],
+  //   { limit: 1 }
+  // );
+
+  // videos = await asyncMap(videos, async (video) => {
+  //   const content = await prepareMDX(video.content, {
+  //     directory: video.directory,
+  //     imagesUrl: `/img/index/${video.slug.join("/")}`,
+  //   });
+
+  //   return {
+  //     ...video,
+  //     content,
+  //   };
+  // });
+
+  // books = await asyncMap(books, async (book) => {
+  //   const content = await prepareMDX(book.content, {
+  //     directory: book.directory,
+  //     imagesUrl: `/img/index/${book.slug.join("/")}`,
+  //   });
+
+  //   return {
+  //     ...book,
+  //     content,
+  //   };
+  // });
+
+  return {
+    props: {
+      posts,
+      // books,
+      // projects,
+      // videos,
+    },
+  };
 };
 
 export default IndexPage;
