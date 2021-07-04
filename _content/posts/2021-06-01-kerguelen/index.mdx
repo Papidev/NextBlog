@@ -3,24 +3,27 @@ title: Kerguelen Islands
 lead: Captain Cook dismissed them as "Desolation Islands". But to ours eyes it’s too harsh a judgment.
 date: 2020-03-09T21:10:37.426Z
 tags:
-  - Islands
+    - Islands
 ---
 
 import CitationWrapper from "@/lib/components/Utility/citationWrapper.tsx";
-import Pippo from "@/lib/components/Image/pippo.tsx";
+import ImageCaption from "@/lib/components/Image/ImageCaption.tsx";
+
 <CitationWrapper
-  citation={{
-    isEditedContent: true,
-    contentType: "photo",
-    contentHref: "https://commons.wikimedia.org/wiki/File:Anse_Tranchant.jpg",
-    contentAuthor: "Benoit Gineste",
-    license: "CC BY-SA 4.0",
-    licenseHref: "https://creativecommons.org/licenses/by-sa/4.0",
-    notes: " via Wikimedia Commons",
-  }}
+	citation={{
+		isEditedContent: true,
+		contentType: "photo",
+		contentHref:
+			"https://commons.wikimedia.org/wiki/File:Anse_Tranchant.jpg",
+		contentAuthor: "Benoit Gineste",
+		license: "CC BY-SA 4.0",
+		licenseHref: "https://creativecommons.org/licenses/by-sa/4.0",
+		notes: " via Wikimedia Commons",
+	}}
 >
-  <Pippo></Pippo>
-</CitationWrapper>;
+	<ImageCaption></ImageCaption>
+</CitationWrapper>
+;
 
 The **Kerguelens** (overseas territory of **France**) are an archipelago of more than 300 islands and islets, lost down in the southern Indian Ocean along the way to the Antarctic.
 

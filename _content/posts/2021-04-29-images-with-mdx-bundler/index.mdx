@@ -3,12 +3,16 @@ title: Images with MDX-Bundler
 lead: Co-locate and bundle your images with MDX-Bundler!
 date: 2021-04-29T21:10:37.426Z
 tags:
-  - Next.JS
-  - MDX
+    - Next.JS
+    - MDX
 ---
+
 mdx-bundler 3.4.0 has just been released! This new version improves on an awesome feature of 3.3.0 which allows you to set the current working directory of the build. With this you can require modules directly and co-locate your images within the same directory as the post!
 
 This cuts down on your overheads and means that `mdx-bundler` works alot more like the way mdx does in Gatsby.
+import Demo from '@/lib/components/Utility/demo.tsx';
+
+<Demo />;
 
 ## Components
 
@@ -25,35 +29,35 @@ Images can be linked to in the same way and with a couple of extra bits of confi
 Before we can get esbuild to handle the images it needs to know that there are files to import. Enter [remark-mdx-images](https://www.npmjs.com/package/remark-mdx-images) which takes the images in your MDX and turns them into imports, like you would in your .tsx files.
 
 ```ts
-import image from './image.jpg'
+import image from "./image.jpg";
 
-<img src={image} />
+<img src={image} />;
 ```
 
-So now esbuild knows about the images we need to do something with them, right now its just going to complain that it doesn't have a loader for the `.jpg` file type. 
+So now esbuild knows about the images we need to do something with them, right now its just going to complain that it doesn't have a loader for the `.jpg` file type.
 
 To start with the `dataurl` loader will do the job, it inlines all the images as `dataurl:image/jpg...`. Not the most effecient solution but it does work out of the box and I used it as a proof of concept.
 
 ```js
-const {code} = await bundleMDX(source, {
-  cwd: '/posts/directory/on/disk',
-  xdmOptions: (input, options) => {
-    options.remarkPlugins = [
-      ...(options.remarkPlugins ?? []),
-      remarkMdxImages
-    ]
-    
-    return options
-  },
-  esbuildOptions: (options) => {
-    options.loader = {
-      ...options.loader,
-      '.jpg': 'dataurl',
-    }
+const { code } = await bundleMDX(source, {
+	cwd: "/posts/directory/on/disk",
+	xdmOptions: (input, options) => {
+		options.remarkPlugins = [
+			...(options.remarkPlugins ?? []),
+			remarkMdxImages,
+		];
 
-    return options
-  }
-})
+		return options;
+	},
+	esbuildOptions: options => {
+		options.loader = {
+			...options.loader,
+			".jpg": "dataurl",
+		};
+
+		return options;
+	},
+});
 ```
 
 This _just_ works, but as I said does inline all the images which will result in some pretty big bundles. The real aim was always the `file` loader which copies files from the source to the destination.
@@ -61,28 +65,28 @@ This _just_ works, but as I said does inline all the images which will result in
 As the `file` loader is copying files around it needs to know more details about the resulting environment. At a minimum, where should the files be outputted to and what url is needed to request them.
 
 ```js
-const {code} = await bundleMDX(source, {
-  cwd: '/posts/directory/on/disk',
-  xdmOptions: (input, options) => {
-    options.remarkPlugins = [
-      ...(options.remarkPlugins ?? []),
-      remarkMdxImages
-    ]
-    
-    return options
-  },
-  esbuildOptions: (options) => {
-    options.outdir = '/public/directory/on/disk/img'
-    options.loader = {
-      ...options.loader,
-      '.jpg': 'file'
-    }
-    options.publicPath = '/img/'
-    options.write = true
+const { code } = await bundleMDX(source, {
+	cwd: "/posts/directory/on/disk",
+	xdmOptions: (input, options) => {
+		options.remarkPlugins = [
+			...(options.remarkPlugins ?? []),
+			remarkMdxImages,
+		];
 
-    return options
-  }
-})
+		return options;
+	},
+	esbuildOptions: options => {
+		options.outdir = "/public/directory/on/disk/img";
+		options.loader = {
+			...options.loader,
+			".jpg": "file",
+		};
+		options.publicPath = "/img/";
+		options.write = true;
+
+		return options;
+	},
+});
 ```
 
 `outdir` is where on disk to write to, `publicPath` is the url to that folder and most importantly `write` tells `esbuild` that it should output the files into the `outdir`.
