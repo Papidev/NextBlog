@@ -1,27 +1,32 @@
 ---
+id: kerguelen
 title: Kerguelen Islands
 lead: Captain Cook dismissed them as "Desolation Islands". But to ours eyes it’s too harsh a judgment.
 date: 2020-03-09T21:10:37.426Z
 tags:
-    - Islands
+  - Islands
 ---
 
 import CitationWrapper from "@/lib/components/Utility/citationWrapper.tsx";
 import ImageCaption from "@/lib/components/Image/ImageCaption.tsx";
 
 <CitationWrapper
-	citation={{
-		isEditedContent: true,
-		contentType: "photo",
-		contentHref:
-			"https://commons.wikimedia.org/wiki/File:Anse_Tranchant.jpg",
-		contentAuthor: "Benoit Gineste",
-		license: "CC BY-SA 4.0",
-		licenseHref: "https://creativecommons.org/licenses/by-sa/4.0",
-		notes: " via Wikimedia Commons",
-	}}
+  citation={{
+    isEditedContent: true,
+    contentType: "photo",
+    contentHref: "https://commons.wikimedia.org/wiki/File:Anse_Tranchant.jpg",
+    contentAuthor: "Benoit Gineste",
+    license: "CC BY-SA 4.0",
+    licenseHref: "https://creativecommons.org/licenses/by-sa/4.0",
+    notes: " via Wikimedia Commons",
+  }}
 >
-	<ImageCaption></ImageCaption>
+
+  <ImageCaption
+    section='kerguelen'
+    imgName="Anse-Tranchant"
+    description="Anse Tranchant"
+  />
 </CitationWrapper>
 ;
 
