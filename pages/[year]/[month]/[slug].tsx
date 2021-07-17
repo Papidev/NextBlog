@@ -1,124 +1,130 @@
-import React from "react";
+import React from 'react';
 import {
-  GetStaticPropsContext,
-  NextPage,
-  GetStaticPaths,
-  InferGetStaticPropsType,
-} from "next";
-import Link from "next/link";
-import Head from "next/head";
-import { pick } from "@arcath/utils";
+	GetStaticPropsContext,
+	NextPage,
+	GetStaticPaths,
+	InferGetStaticPropsType,
+} from 'next';
+import Link from 'next/link';
+import Head from 'next/head';
+import { pick } from '@arcath/utils';
 
-import { getPostBySlug, getPosts } from "@/lib/data/posts";
+import { getPostBySlug, getPosts } from '@/lib/data/posts';
 
-import { ContentContainer, MDX } from "@/lib/components/mdx";
-import { Layout } from "@/lib/components/layout";
-import { OpenGraph } from "@/lib/components/open-graph";
-import { MONTH_FROM_STRING } from "@/lib/components/post-date";
-import { ShareButtons } from "@/lib/components/share-buttons";
+import { ContentContainer, MDX } from 'components/mdx';
+import { Layout } from 'components/layout';
+import { OpenGraph } from 'components/open-graph';
+import { MONTH_FROM_STRING } from 'components/post-date';
+import { ShareButtons } from 'components/share-buttons';
 
-import { pageTitle } from "@/lib/functions/page-title";
-import { prepareMDX } from "@/lib/functions/prepare-mdx";
-import { tagHref } from "@/lib/functions/tag-href";
+import { pageTitle } from '@/lib/functions/page-title';
+import { prepareMDX } from '@/lib/functions/prepare-mdx';
+import { tagHref } from '@/lib/functions/tag-href';
 
-import meta from "@/data/meta.json";
+import meta from '@/data/meta.json';
 
 export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
-  if (params?.slug && params.year && params.month) {
-    const post = await getPostBySlug(
-      [params.year as string, params.month as string, params.slug as string],
-      [
-        "slug",
-        "title",
-        "content",
-        "lead",
-        "href",
-        "tags",
-        "year",
-        "month",
-        "day",
-        "directory",
-      ]
-    );
+	if (params?.slug && params.year && params.month) {
+		const post = await getPostBySlug(
+			[
+				params.year as string,
+				params.month as string,
+				params.slug as string,
+			],
+			[
+				'slug',
+				'title',
+				'content',
+				'lead',
+				'href',
+				'tags',
+				'year',
+				'month',
+				'day',
+				'directory',
+			]
+		);
 
-    const source = await prepareMDX(post.content, {
-      directory: post.directory,
-      imagesUrl: `/img/posts/${post.slug.join("/")}/`,
-    });
-    console.log("source", source);
-    return {
-      props: {
-        post: pick(post, [
-          "slug",
-          "title",
-          "lead",
-          "href",
-          "tags",
-          "year",
-          "month",
-          "day",
-        ]),
-        source,
-      },
-    };
-  }
+		const source = await prepareMDX(post.content, {
+			directory: post.directory,
+			imagesUrl: `/img/posts/${post.slug.join('/')}/`,
+		});
+		console.log('source', source);
+		return {
+			props: {
+				post: pick(post, [
+					'slug',
+					'title',
+					'lead',
+					'href',
+					'tags',
+					'year',
+					'month',
+					'day',
+				]),
+				source,
+			},
+		};
+	}
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getPosts(["slug", "year", "month", "href"], {
-    limit: false,
-  });
+	const posts = await getPosts(['slug', 'year', 'month', 'href'], {
+		limit: false,
+	});
 
-  const paths = posts.map(({ slug, year, month }) => {
-    return { params: { slug: slug.pop(), year, month } };
-  });
+	const paths = posts.map(({ slug, year, month }) => {
+		return { params: { slug: slug.pop(), year, month } };
+	});
 
-  return {
-    paths,
-    fallback: false,
-  };
+	return {
+		paths,
+		fallback: false,
+	};
 };
 
 const MDXPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
-  post,
-  source,
+	post,
+	source,
 }) => {
-  return (
-    <Layout>
-      <Head>
-        <title>{pageTitle(post.title)}</title>
-      </Head>
-      <OpenGraph
-        title={post.title}
-        description={post.lead}
-        image={`${meta.productionUrl}/img/social${post.href}/social.jpg`}
-      />
-      <ContentContainer>
-        <aside className="col-start-3 md:col-start-2 col-end-3 row-start-1 row-span-3">
-          <div className="w-full md:w-32 text-center mb-8 float-right">
-            <div className="text-3xl">{post.day}</div>
-            <div className="mt-0">{MONTH_FROM_STRING[post.month]}</div>
-            <div>{post.year}</div>
-            {post.tags.map((tag) => {
-              return (
-                <Link key={tag} href={tagHref(tag)}>
-                  <a className="block my-2">{tag}</a>
-                </Link>
-              );
-            })}
-          </div>
-        </aside>
-        <h1 className="mb-0 col-start-3">{post.title}</h1>
-        <MDX source={source} />
-        <aside className="col-start-3">
-          <ShareButtons
-            url={`${meta.productionUrl}${post.href}`}
-            title={post.title}
-          />
-        </aside>
-      </ContentContainer>
-    </Layout>
-  );
+	return (
+		<Layout>
+			<Head>
+				<title>{pageTitle(post.title)}</title>
+			</Head>
+			<OpenGraph
+				title={post.title}
+				description={post.lead}
+				image={`${meta.productionUrl}/img/social${post.href}/social.jpg`}
+			/>
+			<ContentContainer>
+				<aside className='col-start-3 md:col-start-2 col-end-3 row-start-1 row-span-3'>
+					<div className='w-full md:w-32 text-center mb-8 float-right'>
+						<div className='text-3xl'>{post.day}</div>
+						<div className='mt-0'>
+							{MONTH_FROM_STRING[post.month]}
+						</div>
+						<div>{post.year}</div>
+						{post.tags.map(tag => {
+							return (
+								<Link key={tag} href={tagHref(tag)}>
+									<a className='block my-2'>{tag}</a>
+								</Link>
+							);
+						})}
+					</div>
+				</aside>
+				<h1 className='mb-0 col-start-3'>{post.title}</h1>
+				<MDX source={source} />
+				<aside className='col-start-3'>
+					<ShareButtons
+						url={`${meta.productionUrl}${post.href}`}
+						title={post.title}
+					/>
+				</aside>
+			</ContentContainer>
+		</Layout>
+	);
 };
 
 export default MDXPage;

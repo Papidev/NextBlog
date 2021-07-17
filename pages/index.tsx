@@ -1,52 +1,52 @@
-import React, { useState, useEffect } from "react";
-import { InferGetStaticPropsType } from "next";
-import Link from "next/link";
-import Head from "next/head";
-import Image from "next/image";
+import React, { useState, useEffect } from 'react';
+import { InferGetStaticPropsType } from 'next';
+import Link from 'next/link';
+import Head from 'next/head';
+import Image from 'next/image';
 //import Youtube from "react-youtube";
-import { asyncMap } from "@arcath/utils";
+import { asyncMap } from '@arcath/utils';
 //import { useInView } from "react-intersection-observer";
 
-import { getBooks } from "@/lib/data/books";
-import { getPosts } from "@/lib/data/posts";
-import { getProjects } from "@/lib/data/projects";
-import { getVideos } from "@/lib/data/videos";
+import { getBooks } from '@/lib/data/books';
+import { getPosts } from '@/lib/data/posts';
+import { getProjects } from '@/lib/data/projects';
+import { getVideos } from '@/lib/data/videos';
 
-import { Layout } from "@/lib/components/layout";
-import { MDX } from "@/lib/components/mdx";
-import { PostDate } from "@/lib/components/post-date";
+import { Layout } from 'components/layout';
+import { MDX } from 'components/mdx';
+import { PostDate } from 'components/post-date';
 // import { OpenGraph } from "@/lib/components/open-graph";
 
-import { prepareMDX } from "@/lib/functions/prepare-mdx";
+import { prepareMDX } from '@/lib/functions/prepare-mdx';
 
-import meta from "@/data/meta.json";
+import meta from '@/data/meta.json';
 
 const IndexPage = ({
-  posts,
+	posts,
 }: // books,
 // projects,
 // videos,
 InferGetStaticPropsType<typeof getStaticProps>) => {
-  //const { ref: inViewRef, inView } = useInView();
-  // const [videoOpen, setVideoOpen] = useState(false);
+	//const { ref: inViewRef, inView } = useInView();
+	// const [videoOpen, setVideoOpen] = useState(false);
 
-  // useEffect(() => {
-  //   if (!videoOpen && inView) {
-  //     setVideoOpen(true);
-  //   }
-  // }, [videoOpen, setVideoOpen, inView]);
+	// useEffect(() => {
+	//   if (!videoOpen && inView) {
+	//     setVideoOpen(true);
+	//   }
+	// }, [videoOpen, setVideoOpen, inView]);
 
-  return (
-    <Layout>
-      <Head>
-        <title>
-          {meta.name} / {meta.description}
-        </title>
-      </Head>
-      {/* <OpenGraph title={meta.name} description={meta.description} /> */}
-      <div className="grid grid-cols-content prose dark:prose-dark max-w-none">
-        {/* <h2 className="col-start-3">{meta.name}</h2> */}
-        {/* <div className="col-start-3">
+	return (
+		<Layout>
+			<Head>
+				<title>
+					{meta.name} / {meta.description}
+				</title>
+			</Head>
+			{/* <OpenGraph title={meta.name} description={meta.description} /> */}
+			<div className='grid grid-cols-content prose dark:prose-dark max-w-none'>
+				{/* <h2 className="col-start-3">{meta.name}</h2> */}
+				{/* <div className="col-start-3">
           <div className="mx-auto" style={{ width: "300px" }}>
             <Image
               className="rounded-full mx-auto w-full"
@@ -57,27 +57,30 @@ InferGetStaticPropsType<typeof getStaticProps>) => {
             />
           </div>
         </div> */}
-        {/* <p className="col-start-3">{meta.description}</p> */}
-        <h2 className="col-start-3">Recent Posts</h2>
-        {posts.map(({ title, href, day, month, year, lead }) => {
-          return [
-            <div key={`${href}-meta`} className="col-start-3 md:col-start-2">
-              <PostDate year={year} month={month} day={day} />
-            </div>,
-            <div key={`${href}-data`} className="col-start-3">
-              <h3 style={{ marginTop: "0", cursor: "pointer" }}>
-                <Link href={href}>
-                  <a>{title}</a>
-                </Link>
-              </h3>
-              <p>{lead}</p>
-            </div>,
-          ];
-        })}
-        <div className="col-start-3">
-          <Link href="/posts">More...</Link>
-        </div>
-        {/* <h2 className="col-start-3">Currently Watching</h2>
+				{/* <p className="col-start-3">{meta.description}</p> */}
+				<h2 className='col-start-3'>Recent Posts</h2>
+				{posts.map(({ title, href, day, month, year, lead }) => {
+					return [
+						<div
+							key={`${href}-meta`}
+							className='col-start-3 md:col-start-2'
+						>
+							<PostDate year={year} month={month} day={day} />
+						</div>,
+						<div key={`${href}-data`} className='col-start-3'>
+							<h3 style={{ marginTop: '0', cursor: 'pointer' }}>
+								<Link href={href}>
+									<a>{title}</a>
+								</Link>
+							</h3>
+							<p>{lead}</p>
+						</div>,
+					];
+				})}
+				<div className='col-start-3'>
+					<Link href='/posts'>More...</Link>
+				</div>
+				{/* <h2 className="col-start-3">Currently Watching</h2>
         {videos.map(({ title, videoId, content }) => {
           return [
             <h3 className="col-start-3" ref={inViewRef}>
@@ -97,7 +100,7 @@ InferGetStaticPropsType<typeof getStaticProps>) => {
             </div>,
           ];
         })} */}
-        {/* <h2 className="col-start-3">Currently Reading</h2>
+				{/* <h2 className="col-start-3">Currently Reading</h2>
         {books.map(({ href, title, cover, content }) => {
           return [
             <div
@@ -139,75 +142,75 @@ InferGetStaticPropsType<typeof getStaticProps>) => {
         <Link href="/projects">
           <a className="col-start-3">More...</a>
         </Link> */}
-      </div>
-    </Layout>
-  );
+			</div>
+		</Layout>
+	);
 };
 
 export const getStaticProps = async () => {
-  const posts = await getPosts([
-    "slug",
-    "title",
-    "href",
-    "year",
-    "month",
-    "day",
-    "lead",
-  ]);
-  console.log("posts", posts);
-  // let books = await getBooks(
-  //   ["title", "href", "cover", "content", "directory", "slug"],
-  //   { limit: 2 }
-  // );
-  // const projects = await getProjects(["title", "href", "year"], {
-  //   order: "DESC",
-  // });
-  // let videos = await getVideos(
-  //   [
-  //     "title",
-  //     "videoId",
-  //     "href",
-  //     "source",
-  //     "sourceAddress",
-  //     "content",
-  //     "directory",
-  //     "slug",
-  //   ],
-  //   { limit: 1 }
-  // );
+	const posts = await getPosts([
+		'slug',
+		'title',
+		'href',
+		'year',
+		'month',
+		'day',
+		'lead',
+	]);
+	console.log('posts', posts);
+	// let books = await getBooks(
+	//   ["title", "href", "cover", "content", "directory", "slug"],
+	//   { limit: 2 }
+	// );
+	// const projects = await getProjects(["title", "href", "year"], {
+	//   order: "DESC",
+	// });
+	// let videos = await getVideos(
+	//   [
+	//     "title",
+	//     "videoId",
+	//     "href",
+	//     "source",
+	//     "sourceAddress",
+	//     "content",
+	//     "directory",
+	//     "slug",
+	//   ],
+	//   { limit: 1 }
+	// );
 
-  // videos = await asyncMap(videos, async (video) => {
-  //   const content = await prepareMDX(video.content, {
-  //     directory: video.directory,
-  //     imagesUrl: `/img/index/${video.slug.join("/")}`,
-  //   });
+	// videos = await asyncMap(videos, async (video) => {
+	//   const content = await prepareMDX(video.content, {
+	//     directory: video.directory,
+	//     imagesUrl: `/img/index/${video.slug.join("/")}`,
+	//   });
 
-  //   return {
-  //     ...video,
-  //     content,
-  //   };
-  // });
+	//   return {
+	//     ...video,
+	//     content,
+	//   };
+	// });
 
-  // books = await asyncMap(books, async (book) => {
-  //   const content = await prepareMDX(book.content, {
-  //     directory: book.directory,
-  //     imagesUrl: `/img/index/${book.slug.join("/")}`,
-  //   });
+	// books = await asyncMap(books, async (book) => {
+	//   const content = await prepareMDX(book.content, {
+	//     directory: book.directory,
+	//     imagesUrl: `/img/index/${book.slug.join("/")}`,
+	//   });
 
-  //   return {
-  //     ...book,
-  //     content,
-  //   };
-  // });
+	//   return {
+	//     ...book,
+	//     content,
+	//   };
+	// });
 
-  return {
-    props: {
-      posts,
-      // books,
-      // projects,
-      // videos,
-    },
-  };
+	return {
+		props: {
+			posts,
+			// books,
+			// projects,
+			// videos,
+		},
+	};
 };
 
 export default IndexPage;
