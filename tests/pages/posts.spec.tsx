@@ -6,19 +6,21 @@ import * as SWR from 'swr'
 import PostsPage, {getStaticProps} from '../../pages/posts'
 
 describe('Posts Page', () => {
-  it('should select the first 5 posts', async () => {
+  it('should select the posts', async () => {
     const {props} = await getStaticProps({})
 
-    expect(props.posts).toHaveLength(5)
+    expect(props.posts.length).toBeGreaterThan(30)
   })
 
   it('should render content', async () => {
     jest.spyOn(SWR, 'default')
     const intersectionObserverMock = () => ({
-          observe: () => null,
-          disconnect: () => null
+      observe: () => null,
+      disconnect: () => null
     })
-    window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock)
+    window.IntersectionObserver = jest
+      .fn()
+      .mockImplementation(intersectionObserverMock)
 
     const {props} = await getStaticProps({})
 
