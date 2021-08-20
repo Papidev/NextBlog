@@ -1,22 +1,22 @@
-import React from "react";
-import useDarkMode from "use-dark-mode";
-import Link from "next/link";
-import Head from "next/head";
-import Image from "next/image";
+import React from 'react';
+// import useDarkMode from "use-dark-mode";
+import Link from 'next/link';
+import Head from 'next/head';
+import Image from 'next/image';
 
-import meta from "@/data/meta.json";
+import meta from '@/data/meta.json';
 
 export const Layout: React.FC = ({ children }) => {
-  const { toggle, value: darkMode } = useDarkMode(false, {
-    classNameDark: "dark",
-  });
+	// const { toggle, value: darkMode } = useDarkMode(false, {
+	// 	classNameDark: 'dark',
+	// });
 
-  return (
-    <>
-      <Head>
-        <link rel="icon" type="image/png" href="/img/512.png" />
-      </Head>
-      {/* <div
+	return (
+		<>
+			<Head>
+				<link rel='icon' type='image/png' href='/img/512.png' />
+			</Head>
+			{/* <div
         className="w-8 absolute top-8 right-8 text-gray-300 dark:text-yellow-300"
         onClick={toggle}
       >
@@ -50,39 +50,39 @@ export const Layout: React.FC = ({ children }) => {
           </svg>
         )}
       </div> */}
-      <div className="grid grid-cols-content">
-        <header className="h-24 col-span-full grid grid-cols-content">
-          <div className="grid grid-cols-2 col-start-2 col-end-5">
-            <div>
-              <Link href="/">
-                <a>
-                  <h1 className="text-white text-3xl hover:text-brand-light">
-                    {meta.name}
-                  </h1>
-                </a>
-              </Link>
-              <h2>{meta.description}</h2>
-            </div>
-            <div className="text-right text-white">
-              <Link href="/about">
-                <a className="mx-2 my-8">About</a>
-              </Link>
-              <Link href="/uses">
-                <a className="mx-2 my-8">Uses</a>
-              </Link>
-              <Link href="/contact">
-                <a className="mx-2 my-8">Contact</a>
-              </Link>
-            </div>
-          </div>
-        </header>
-        {/* <div className="top-skew" /> */}
-        <div className="bg-white col-span-full z-10 dark:bg-gray-800 dark:text-gray-300 transition-all">
-          {children}
-        </div>
-        {/* <div className="bottom-skew" /> */}
-        <div className="col-start-2 col-end-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 text-white mb-20">
-          {/* <div className="w-64 mx-auto lg:ml-0">
+			<div className='grid grid-cols-content'>
+				<header className='h-24 col-span-full grid grid-cols-content'>
+					<div className='grid grid-cols-2 col-start-2 col-end-5'>
+						<div>
+							<Link href='/'>
+								<a>
+									<h1 className='text-white text-3xl hover:text-brand-light'>
+										{meta.name}
+									</h1>
+								</a>
+							</Link>
+							<h2>{meta.description}</h2>
+						</div>
+						<div className='text-right text-white'>
+							<Link href='/about'>
+								<a className='mx-2 my-8'>About</a>
+							</Link>
+							<Link href='/uses'>
+								<a className='mx-2 my-8'>Uses</a>
+							</Link>
+							<Link href='/contact'>
+								<a className='mx-2 my-8'>Contact</a>
+							</Link>
+						</div>
+					</div>
+				</header>
+				{/* <div className="top-skew" /> */}
+				<div className='bg-white col-span-full z-10 dark:bg-gray-800 dark:text-gray-300 transition-all'>
+					{children}
+				</div>
+				{/* <div className="bottom-skew" /> */}
+				<div className='col-start-2 col-end-5 grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 text-white mb-20'>
+					{/* <div className="w-64 mx-auto lg:ml-0">
             <Image
               src="/img/profile.jpg"
               className="rounded-full w-64"
@@ -91,19 +91,19 @@ export const Layout: React.FC = ({ children }) => {
               height={256}
             />
           </div> */}
-          <div>
-            {/* <h2 className="text-2xl">{meta.name}</h2>
+					<div>
+						{/* <h2 className="text-2xl">{meta.name}</h2>
             <h3 className="text-xl mb-6">{meta.description}</h3> */}
-            <p>All content is my own unless otherwise stated.</p>
-            <p>
-              My content is licensed under the{" "}
-              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">
-                CC-BY-NC-SA 4.0
-              </a>{" "}
-              license
-            </p>
-          </div>
-          {/* <div className="md:col-span-2 lg:col-span-1">
+						<p>All content is my own unless otherwise stated.</p>
+						<p>
+							My content is licensed under the{' '}
+							<a href='https://creativecommons.org/licenses/by-nc-sa/4.0/'>
+								CC-BY-NC-SA 4.0
+							</a>{' '}
+							license
+						</p>
+					</div>
+					{/* <div className="md:col-span-2 lg:col-span-1">
             <a
               href={meta.author.social.twitter}
               className="fill-current text-white hover:text-brands-twitter"
@@ -161,8 +161,8 @@ export const Layout: React.FC = ({ children }) => {
               </svg>
             </a>
           </div> */}
-        </div>
-      </div>
-    </>
-  );
+				</div>
+			</div>
+		</>
+	);
 };

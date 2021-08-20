@@ -8,6 +8,7 @@ interface IImage {
 	imgName: string;
 	description: string;
 	mobileImgName?: string;
+	alternativeImgName?: string;
 }
 
 const Image = ({ section, imgName, description, mobileImgName }: IImage) => {
