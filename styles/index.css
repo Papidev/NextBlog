@@ -12,6 +12,7 @@ body {
   @apply overflow-x-hidden;
   @apply bg-fixed;
 
+<<<<<<< HEAD
   /* background-image:linear-gradient(0deg, theme('colors.brand.light'), theme('colors.brand.dark')); */
   background-image: linear-gradient(
     to right bottom,
@@ -20,6 +21,12 @@ body {
     #008793,
     #00bf72,
     #a8eb12
+=======
+  background-image: linear-gradient(
+    0deg,
+    theme('colors.brand.light'),
+    theme('colors.brand.dark')
+>>>>>>> main
   );
 }
 
@@ -124,6 +131,14 @@ a {
 .prose blockquote p:first-of-type::before,
 .prose blockquote p:last-of-type::before {
   content: "" !important;
+}
+
+.prose blockquote {
+  @apply border-brand-dark;
+}
+
+.prose pre {
+  padding: 0 !important;
 }
 
 /*
